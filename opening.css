@@ -1,0 +1,292 @@
+/* Gold, black and white peacock-feather opening */
+
+html.opening-running #brand-opening {
+  overflow: hidden;
+  isolation: isolate;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 38%,
+      rgba(156, 119, 41, .12),
+      transparent 55%
+    ),
+    #080a0c;
+}
+
+.opening-composition {
+  width: min(440px, 85vw);
+  text-align: center;
+}
+
+.opening-feather {
+  display: block;
+  width: 145px;
+  height: 195px;
+  margin: 0 auto 22px;
+  overflow: visible;
+}
+
+.feather-stem,
+.feather-outline,
+.feather-barb,
+.feather-eye {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: feather-draw 1500ms ease-out forwards;
+}
+
+.feather-outline {
+  animation-delay: 100ms;
+}
+
+.feather-barb {
+  opacity: .65;
+  animation-delay: 250ms;
+}
+
+.feather-eye {
+  stroke-width: 2;
+  animation-delay: 400ms;
+}
+
+.inner-eye {
+  animation-delay: 550ms;
+}
+
+.feather-jewel {
+  opacity: 0;
+  animation: jewel-appear 650ms 900ms ease-out forwards;
+}
+
+.opening-brand {
+  margin: 0;
+  color: #fffdf5;
+  font: 400 clamp(28px, 5vw, 42px)/1.2 Georgia, serif;
+  letter-spacing: 7px;
+
+  opacity: 0;
+  animation: opening-text-rise 850ms 350ms ease-out forwards;
+}
+
+.opening-subtitle {
+  margin-top: 12px;
+  color: #ddbd78;
+  font: 11px/1.5 Arial, sans-serif;
+  letter-spacing: 6px;
+
+  opacity: 0;
+  animation: opening-text-rise 850ms 500ms ease-out forwards;
+}
+
+.opening-gold-line {
+  width: 90px;
+  height: 1px;
+  margin: 24px auto;
+
+  background: linear-gradient(90deg, transparent, #e3c17b, transparent);
+  transform: scaleX(0);
+
+  animation: opening-line 900ms 700ms ease-out forwards;
+}
+
+.opening-tagline {
+  margin: 0;
+  color: #c7c5bc;
+  font: italic 16px/1.5 Georgia, serif;
+
+  opacity: 0;
+  animation: opening-text-rise 800ms 750ms ease-out forwards;
+}
+
+.opening-skip {
+  position: absolute;
+  right: 25px;
+  bottom: max(25px, env(safe-area-inset-bottom));
+
+  padding: 10px 17px;
+  border: 1px solid #a889494d;
+  border-radius: 24px;
+
+  color: #e0c58c;
+  background: transparent;
+  font: 12px Arial, sans-serif;
+  cursor: pointer;
+}
+
+.opening-skip:hover {
+  background: #e0c58c12;
+}
+
+/* Prevent the hero animation running behind the opening. */
+html.opening-running .hero-copy > *,
+html.opening-running .hero-visual {
+  animation: none !important;
+}
+
+@keyframes feather-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes jewel-appear {
+  to { opacity: 1; }
+}
+
+@keyframes opening-text-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes opening-line {
+  to { transform: scaleX(1); }
+}
+
+@media (max-width: 760px) {
+  .opening-feather {
+    width: 125px;
+    height: 170px;
+  }
+
+  .opening-brand {
+    font-size: 29px;
+    letter-spacing: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #brand-opening {
+    display: none !important;
+  }
+
+  html.opening-running body > :not(#brand-opening) {
+    visibility: visible !important;
+  }
+}
+/* Refined sequence: stem → strands → eye → brand */
+
+.feather-stem {
+  animation-duration: 850ms;
+  animation-delay: 0ms;
+}
+
+.feather-outline {
+  animation-duration: 1100ms;
+  animation-delay: 150ms;
+}
+
+.feather-barb {
+  animation-duration: 1050ms;
+  animation-delay: 300ms;
+}
+
+.feather-barb:nth-of-type(4) {
+  animation-delay: 400ms;
+}
+
+.feather-barb:nth-of-type(5) {
+  animation-delay: 500ms;
+}
+
+.feather-barb:nth-of-type(6) {
+  animation-delay: 600ms;
+}
+
+.feather-eye {
+  animation-duration: 850ms;
+  animation-delay: 700ms;
+}
+
+.inner-eye {
+  animation-delay: 850ms;
+}
+
+.feather-jewel {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: feather-eye-light 1000ms 1000ms both;
+}
+
+.opening-brand {
+  animation-delay: 850ms;
+}
+
+.opening-subtitle {
+  animation-delay: 1000ms;
+}
+
+.opening-gold-line {
+  animation-delay: 1150ms;
+}
+
+.opening-tagline {
+  animation-delay: 1200ms;
+}
+
+/* Gold edge travels with the opening curtain. */
+.opening-exit-trail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 5;
+  height: 3px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #b58b38 20%,
+    #fff0bd 50%,
+    #dfb85b 80%,
+    transparent
+  );
+
+  box-shadow:
+    0 0 18px rgba(237, 195, 84, .5),
+    0 0 40px rgba(237, 195, 84, .2);
+}
+
+/* Continue the same light along the hero's bottom edge. */
+.opening-hero-trail {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  pointer-events: none;
+  z-index: 4;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #f5d990,
+    transparent
+  );
+
+  transform-origin: left;
+}
+
+@keyframes feather-eye-light {
+  0% {
+    opacity: 0;
+    scale: .7;
+  }
+  55% {
+    opacity: 1;
+    scale: 1.15;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-exit-trail,
+  .opening-hero-trail {
+    display: none;
+  }
+}

@@ -1,3008 +1,1136 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102d50">
+  <meta
+    name="description"
+    content="Maathavam Consulting provides fractional CFO leadership,
+    organisational transformation, finance operations, HR and IT services.
+    Founder-led advisory backed by experienced global leaders."
+  >
+  <style>
+  /* Critical first-paint rules: prevent the website flashing. */
+  #brand-opening {
+    display: none;
+  }
 
-    <meta charset="UTF-8">
+  html.opening-running {
+    background: #080a0c;
+  }
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+  html.opening-running body > :not(#brand-opening) {
+    visibility: hidden !important;
+  }
 
-    <title>
-        Maathavam | Engineering Tomorrow's Business Ecosystems
-    </title>
+  html.opening-running #brand-opening {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    place-items: center;
+    background: #080a0c;
+    color: white;
+  }
+</style>
 
-    <meta name="description"
-          content="Business Strategy • AI Consulting • Digital Transformation • Technology Consulting">
+<script>
+  (() => {
+    const root = document.documentElement;
 
-    <meta name="theme-color"
-          content="#2E8BFF">
+    // This site deliberately starts at the top on load/reload.
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+    function resetToTop() {
+      // Remove section anchors without adding a history entry.
+      if (location.hash) {
+        history.replaceState(
+          history.state,
+          "",
+          location.pathname + location.search
+        );
+      }
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+      const previous = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
+      window.scrollTo(0, 0);
+      root.style.scrollBehavior = previous;
+    }
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
+    resetToTop();
 
-    <link rel="stylesheet"
-          href="style.css">
+    document.addEventListener("DOMContentLoaded", resetToTop, {
+      once: true
+    });
 
-    <script defer
-            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    // Covers the browser's final scroll restoration.
+    window.addEventListener("pageshow", resetToTop, {
+      once: true
+    });
 
-    <script defer
-            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+    const reduced = matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-    <script defer
-            src="script.js"></script>
+    let paused = false;
 
+    try {
+      paused = localStorage.getItem("maathavam-motion") === "off";
+    } catch {}
+
+    if (reduced || paused) return;
+
+    root.classList.add("opening-running");
+    window.maathavamOpeningStart = performance.now();
+
+    // Fail-safe: never leave the intro covering the website.
+    window.maathavamOpeningFallback = setTimeout(() => {
+      root.classList.remove("opening-running");
+      document.getElementById("brand-opening")?.remove();
+    }, 4000);
+  })();
+</script>
+
+  <title>Maathavam Consulting | Partners in Transformation</title>
+
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="interactive.css">
+<script src="interactive.js" defer></script>
+<link rel="stylesheet" href="cinematic.css">
+<script src="cinematic.js" defer></script>
+
+<link rel="stylesheet" href="opening.css">
+<script src="opening.js" defer></script>
 </head>
-
 <body>
+    <div id="brand-opening">
+  <div class="opening-composition" aria-hidden="true">
+    <svg
+      class="opening-feather"
+      viewBox="0 0 240 320"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="feather-gold" x1="40" y1="20" x2="200" y2="300">
+          <stop stop-color="#fff0be"/>
+          <stop offset=".45" stop-color="#deb455"/>
+          <stop offset="1" stop-color="#94702b"/>
+        </linearGradient>
+      </defs>
 
-<!-- ====================================================== -->
-<!-- BACKGROUND -->
-<!-- ====================================================== -->
+      <g
+        stroke="url(#feather-gold)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      >
+        <!-- Central stem -->
+        <path
+          class="feather-stem"
+          pathLength="1"
+          d="M72 302C91 249 115 186 132 118"
+        />
 
-<div id="gradient-bg"></div>
+        <!-- Outer feather silhouette -->
+        <path
+          class="feather-outline"
+          pathLength="1"
+          d="M109 225C56 184 47 113 76 63
+             C91 37 121 19 149 17
+             C190 40 207 89 191 132
+             C179 168 145 198 109 225Z"
+        />
 
-<div id="grid-overlay"></div>
+        <!-- Fine barbs -->
+        <path class="feather-barb" pathLength="1"
+          d="M110 218Q76 184 65 143M115 203Q79 154 71 111"/>
+        <path class="feather-barb" pathLength="1"
+          d="M120 184Q87 137 85 81M126 164Q107 118 112 50"/>
+        <path class="feather-barb" pathLength="1"
+          d="M111 218Q158 188 176 157M117 198Q167 164 188 118"/>
+        <path class="feather-barb" pathLength="1"
+          d="M123 179Q173 139 187 86M129 155Q171 111 170 49"/>
 
-<canvas id="particles"></canvas>
+        <!-- Peacock eye -->
+        <path
+          class="feather-eye"
+          pathLength="1"
+          d="M132 148C104 135 94 112 104 87
+             C111 68 130 51 148 46
+             C170 63 179 87 171 109
+             C164 128 149 141 132 148Z"
+        />
 
-<div id="cursor-glow"></div>
+        <path
+          class="feather-eye inner-eye"
+          pathLength="1"
+          d="M136 126C120 117 116 102 123 89
+             C128 80 136 73 146 70
+             C157 81 161 94 156 105
+             C152 115 144 122 136 126Z"
+        />
+      </g>
 
-<!-- ====================================================== -->
-<!-- NAVIGATION -->
-<!-- ====================================================== -->
+      <ellipse
+        class="feather-jewel"
+        cx="140"
+        cy="99"
+        rx="8"
+        ry="12"
+        transform="rotate(18 140 99)"
+        fill="#f1d58e"
+      />
+    </svg>
 
-<header>
+    <p class="opening-brand">MAATHAVAM</p>
+    <p class="opening-subtitle">CONSULTING</p>
 
-<nav class="navbar">
+    <div class="opening-gold-line"></div>
 
-<a href="#home"
-class="logo">
+    <p class="opening-tagline">Knowledge into Excellence</p>
+  </div>
 
-MAATHAVAM
-
-</a>
-
-<ul class="nav-links">
-
-<li>
-
-<a href="#home">
-
-Home
-
-</a>
-
-</li>
-
-<li>
-
-<a href="#challenge">
-
-Challenge
-
-</a>
-
-</li>
-
-<li>
-
-<a href="#framework">
-
-Framework
-
-</a>
-
-</li>
-
-<li>
-
-<a href="#solutions">
-
-Solutions
-
-</a>
-
-</li>
-
-<li>
-
-<a href="#industries">
-
-Industries
-
-</a>
-
-</li>
-
-<li>
-
-<a href="#insights">
-
-Insights
-
-</a>
-
-</li>
-
-<li>
-
-<a href="#contact">
-
-Contact
-
-</a>
-
-</li>
-
-</ul>
-
-<div class="menu-btn">
-
-<span></span>
-
-<span></span>
-
-<span></span>
-
+  <button class="opening-skip" type="button">
+    Skip intro ↗
+  </button>
 </div>
-
-</nav>
-
-</header>
-
-<!-- ====================================================== -->
-<!-- HERO -->
-<!-- ====================================================== -->
-
-<section id="home"
-class="hero">
-
-<div class="container">
-
-<div class="announcement">
-
-Transformational Business Partnering through Strategy, Leadership and Insights
-
-</div>
-
-<h1>
-
-Strategy.
-
-<br>
-
-Technology.
-
-<br>
-
-<span>
-
-Artificial Intelligence.
-
-</span>
-
-</h1>
-
-<h2>
-
-Where Vision Meets Execution.
-
-</h2>
-
-<p>
-
-Maathavam partners with visionary organizations
-to unlock sustainable business growth through
-strategy consulting, digital transformation,
-Artificial Intelligence and enterprise technology.
-
-</p>
-
-<div class="hero-buttons">
-
-<a href="#contact"
-class="btn btn-primary">
-
-Start Your Transformation
-
-</a>
-
-<a href="#framework"
-class="btn btn-secondary">
-
-Explore Our Framework
-
-</a>
-
-</div>
-
-<!-- ====================================================== -->
-<!-- AI CORE -->
-<!-- ====================================================== -->
-
-<div class="hero-core">
-
-<div class="core-glow"></div>
-
-<div class="ring ring1"></div>
-
-<div class="ring ring2"></div>
-
-<div class="ring ring3"></div>
-
-<div class="ring ring4"></div>
-
-<div class="connector connector1"></div>
-
-<div class="connector connector2"></div>
-
-<div class="connector connector3"></div>
-
-<div class="connector connector4"></div>
-
-<div class="core">
-
-<div class="core-inner"></div>
-
-<div class="core-pulse"></div>
-
-</div>
-
-<div class="node node1"></div>
-
-<div class="node node2"></div>
-
-<div class="node node3"></div>
-
-<div class="node node4"></div>
-
-<div class="node node5"></div>
-
-<div class="node node6"></div>
-
-<div class="node node7"></div>
-
-<div class="node node8"></div>
-
-</div>
-
-<!-- ====================================================== -->
-<!-- FLOATING KEYWORDS -->
-<!-- ====================================================== -->
-
-<div class="orbit-labels">
-
-<span>
-
-Business Strategy
-
-</span>
-
-<span>
-
-Artificial Intelligence
-
-</span>
-
-<span>
-
-Digital Transformation
-
-</span>
-
-<span>
-
-Cloud
-
-</span>
-
-<span>
-
-Innovation
-
-</span>
-
-<span>
-
-Automation
-
-</span>
-
-<span>
-
-Analytics
-
-</span>
-
-<span>
-
-Leadership
-
-</span>
-
-</div>
-
-</div>
-
-<!-- ====================================================== -->
-<!-- SCROLL -->
-<!-- ====================================================== -->
-
-<div class="scroll-indicator">
-
-<span></span>
-
-</div>
-
-</section>
-
-<!-- ====================================================== -->
-<!-- SECTION DIVIDER -->
-<!-- ====================================================== -->
-
-<div class="section-divider">
-
-<svg viewBox="0 0 1440 180"
-preserveAspectRatio="none">
-
-<path
-
-fill="#ffffff"
-
-d="
-
-M0,96
-
-L60,101.3
-
-C120,107,
-
-240,117,
-
-360,122.7
-
-C480,128,
-
-600,128,
-
-720,117.3
-
-C840,107,
-
-960,85,
-
-1080,69.3
-
-C1200,53,
-
-1320,43,
-
-1380,37.3
-
-L1440,32
-
-L1440,181
-
-L0,181
-
-Z">
-
-</path>
-
-</svg>
-
-</div>
-
-<!-- ====================================================== -->
-<!-- BUSINESS CHALLENGE STARTS HERE -->
-<!-- ====================================================== -->
-
-<section id="challenge"
-class="challenge">
-
-<!-- ====================================================== -->
-<!-- BUSINESS CHALLENGE -->
-<!-- ====================================================== -->
-
-<section id="challenge"
-class="challenge">
-
-<div class="container">
-
-<div class="section-header">
-
-<div class="section-tag">
-
-THE BUSINESS LANDSCAPE
-
-</div>
-
-
-<h2>
-
-Today's Businesses Are Not
-<br>
-
-Fighting Competition.
-
-<br>
-
-They Are Fighting Complexity.
-
-</h2>
-
-
-<p>
-
-Rapid technology shifts, fragmented systems,
-changing customer expectations and operational
-inefficiencies are slowing down organizations
-from reaching their true potential.
-
-</p>
-
-</div>
-
-
-<!-- ====================================================== -->
-<!-- CHALLENGE TIMELINE -->
-<!-- ====================================================== -->
-
-
-<div class="challenge-timeline">
-
-
-<div class="timeline-line"></div>
-
-
-<!-- ITEM 1 -->
-
-<div class="challenge-item">
-
-
-<div class="timeline-node">
-
-01
-
-</div>
-
-
-<div class="challenge-card">
-
-
-<div class="challenge-icon">
-
-⚡
-
-</div>
-
-
-<h3>
-
-Digital Disruption
-
-</h3>
-
-
-<p>
-
-Businesses struggle to adapt as emerging
-technologies reshape industries faster than
-traditional strategies can respond.
-
-</p>
-
-
-<div class="challenge-tags">
-
-<span>
-AI
-</span>
-
-<span>
-Automation
-</span>
-
-<span>
-Innovation
-</span>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-<!-- ITEM 2 -->
-
-<div class="challenge-item reverse">
-
-
-<div class="timeline-node">
-
-02
-
-</div>
-
-
-<div class="challenge-card">
-
-
-<div class="challenge-icon">
-
-🌐
-
-</div>
-
-
-<h3>
-
-Disconnected Ecosystems
-
-</h3>
-
-
-<p>
-
-Legacy systems, isolated data and fragmented
-operations prevent organizations from building
-a unified digital foundation.
-
-</p>
-
-
-<div class="challenge-tags">
-
-<span>
-Cloud
-</span>
-
-<span>
-Data
-</span>
-
-<span>
-Integration
-</span>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-<!-- ITEM 3 -->
-
-<div class="challenge-item">
-
-
-<div class="timeline-node">
-
-03
-
-</div>
-
-
-<div class="challenge-card">
-
-
-<div class="challenge-icon">
-
-📊
-
-</div>
-
-
-<h3>
-
-Decision Complexity
-
-</h3>
-
-
-<p>
-
-Organizations generate massive amounts of data
-but struggle to convert information into
-strategic business decisions.
-
-</p>
-
-
-<div class="challenge-tags">
-
-<span>
-Analytics
-</span>
-
-<span>
-Insights
-</span>
-
-<span>
-Strategy
-</span>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-<!-- ITEM 4 -->
-
-<div class="challenge-item reverse">
-
-
-<div class="timeline-node">
-
-04
-
-</div>
-
-
-<div class="challenge-card">
-
-
-<div class="challenge-icon">
-
-🚀
-
-</div>
-
-
-<h3>
-
-Execution Gap
-
-</h3>
-
-
-<p>
-
-Great ideas often fail because businesses lack
-the right technology roadmap, implementation
-strategy and execution capability.
-
-</p>
-
-
-<div class="challenge-tags">
-
-<span>
-Transformation
-</span>
-
-<span>
-Growth
-</span>
-
-<span>
-Leadership
-</span>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-<!-- ====================================================== -->
-<!-- CHALLENGE STATISTICS -->
-<!-- ====================================================== -->
-
-
-<div class="challenge-stats">
-
-
-<div class="stat-box">
-
-
-<h3>
-
-70%
-
-</h3>
-
-
-<p>
-
-Digital transformation initiatives fail due to
-poor strategy and execution alignment.
-
-</p>
-
-
-</div>
-
-
-
-<div class="stat-box">
-
-
-<h3>
-
-10X
-
-</h3>
-
-
-<p>
-
-Faster innovation is possible with AI-driven
-business ecosystems.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="stat-box">
-
-
-<h3>
-
-90%
-
-</h3>
-
-
-<p>
-
-Of enterprise data remains underutilized without
-proper intelligence systems.
-
-</p>
-
-
-</div>
-
-
-
-
-</div>
-
-
-</section>
-
-
-
-<!-- ====================================================== -->
-<!-- FRAMEWORK SECTION -->
-<!-- ====================================================== -->
-
-<!-- ====================================================== -->
-<!-- TRANSFORMATION FRAMEWORK -->
-<!-- ====================================================== -->
-
- <section id="framework" class="framework">
-
-    <div class="container">
-
-        <div class="section-header framework-header">
-
-            <div class="section-tag">
-                THE MAATHAVAM FRAMEWORK
-            </div>
-
-            <h2>
-                From Business Challenge
-                <br>
-                To Intelligent Growth.
-            </h2>
-
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="reading-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Maathavam Consulting home">
+      <img
+        src="assets/logo.png"
+        alt="Maathavam Consulting — Knowledge into Excellence"
+        width="150"
+        height="100"
+      >
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="main-nav"
+    >
+      Menu <span aria-hidden="true">☰</span>
+    </button>
+
+    <nav id="main-nav" aria-label="Main navigation">
+      <a href="#services">Services</a>
+      <a href="#approach">Approach</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#experience">Experience</a>
+      <a class="button button-blue" href="#contact">
+        Let’s talk <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">YOUR PARTNERS IN TRANSFORMATION</p>
+
+        <h1 id="hero-title">
+          Strategic thinking.<br>
+          Decisive leadership.<br>
+          <em>Lasting impact.</em>
+        </h1>
+
+        <p class="hero-intro">
+          Strategic transformation &amp; fractional CFO leadership.
+        </p>
+
+        <p class="hero-description">
+          We help business leaders strengthen finance, transform
+          operations and build the capability to grow.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-gold" href="#contact">
+            Discuss your business needs
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <a class="text-link" href="#services">
+            Explore our expertise
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+
+        <div class="hero-proof">
+          <strong>30+</strong>
+          <span>years of leadership<br>across global organisations</span>
+          <span class="proof-divider" aria-hidden="true"></span>
+          <span>Founder-led.<br>Senior team. Accountable delivery.</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="portrait-frame">
+          <div class="portrait-heading">
+            <span>EXPERIENCE THAT LEADS</span>
+            <span>MAATHAVAM</span>
+          </div>
+
+          <img
+            src="assets/rajkumar.jpg"
+            alt="Rajkumar Meenakshisundaram"
+            width="600"
+            height="750"
+            fetchpriority="high"
+          >
+
+          <div class="portrait-caption">
+            <h2>Rajkumar Meenakshisundaram</h2>
+            <p>Founder &amp; Managing Partner</p>
+          </div>
+        </div>
+
+        <div class="founder-note">
+          <p>
+            From a transactional function<br>
+            to a <em>strategic value engine.</em>
+          </p>
+          <a href="#leadership" aria-label="Meet our leadership">↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pedigree" aria-label="Leadership background">
+      <p class="eyebrow">LEADERSHIP EXPERIENCE ACROSS</p>
+      <div class="company-list">
+        <span>Cognizant</span>
+        <span>Shell</span>
+        <span>Standard Chartered</span>
+        <span>Maersk</span>
+        <span>Agility</span>
+      </div>
+      <p class="small-note">Organisations where our leaders have worked</p>
+    </section>
+
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow">01 / OUR EXPERTISE</p>
+          <h2 id="services-title">
+            Clarity at the top.<br>
+            <em>Capability on the ground.</em>
+          </h2>
+        </div>
+        <p>
+          From your next strategic decision to everyday delivery,
+          engage the support your business needs.
+        </p>
+      </div>
+
+      <div class="needs-explorer" hidden>
+        <h3>What does your business need next?</h3>
+
+        <div class="need-options" role="group" aria-label="Business priorities">
+          <button type="button" data-need="leadership" aria-pressed="false">
+            Financial leadership
+          </button>
+          <button type="button" data-need="cash" aria-pressed="false">
+            Cash &amp; profitability
+          </button>
+          <button type="button" data-need="change" aria-pressed="false">
+            Business transformation
+          </button>
+          <button type="button" data-need="people" aria-pressed="false">
+            People &amp; capability
+          </button>
+          <button type="button" data-need="operations" aria-pressed="false">
+            Operational delivery
+          </button>
+          <button type="button" data-need="technology" aria-pressed="false">
+            Technology &amp; automation
+          </button>
+        </div>
+
+        <p id="need-status" class="small-note" role="status">
+          Choose a priority to explore relevant services.
+        </p>
+      </div>
+
+      <div class="service-tabs" aria-label="Service groups">
+        <button
+          type="button"
+          id="advisory-tab"
+          data-panel="advisory-panel"
+        >
+          Advisory &amp; Leadership <span>06</span>
+        </button>
+        <button
+          type="button"
+          id="delivery-tab"
+          data-panel="delivery-panel"
+        >
+          Service Delivery &amp; Operations <span>05</span>
+        </button>
+      </div>
+
+      <div id="advisory-panel" class="service-grid">
+        <details class="service" id="service-cfo">
+          <summary>
+            <span class="service-number">01</span>
+            <span>
+              <strong>CFO &amp; Business Partnering</strong>
+              <span>Financial leadership for your next stage.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
             <p>
-                A structured transformation approach that connects
-                business strategy, technology and artificial intelligence
-                from vision to measurable impact.
+              Strategic financial leadership on a fractional basis.
+              Support for growth and funding, board and investor
+              readiness, and high-stakes business decisions.
             </p>
+            <a href="#contact" class="text-link" data-service="CFO & Business Partnering">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
 
+        <details class="service" id="service-transformation">
+          <summary>
+            <span class="service-number">02</span>
+            <span>
+              <strong>Organisational Transformation</strong>
+              <span>Build an organisation ready for change.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              Change leadership, digital tools and operating model
+              redesign to modernise operations and build resilient,
+              scalable structures.
+            </p>
+            <a href="#contact" class="text-link" data-service="Organisational Transformation">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+
+        <details class="service" id="service-programme">
+          <summary>
+            <span class="service-number">03</span>
+            <span>
+              <strong>Programme Support</strong>
+              <span>Experienced support through pivotal change.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              End-to-end support for mergers, acquisitions, restructuring
+              and post-deal integration, with clear milestones and
+              accountable delivery.
+            </p>
+            <a href="#contact" class="text-link" data-service="Programme Support">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+
+        <details class="service" id="service-cash">
+          <summary>
+            <span class="service-number">04</span>
+            <span>
+              <strong>Cash Flow &amp; Cost Engineering</strong>
+              <span>Free liquidity. Make room for growth.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              Working-capital management and cost engineering to
+              improve cash flow, reduce rework and support
+              sustainable growth.
+            </p>
+            <a href="#contact" class="text-link" data-service="Cash Flow & Cost Engineering">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+
+        <details class="service" id="service-teams">
+          <summary>
+            <span class="service-number">05</span>
+            <span>
+              <strong>High-Performance Finance Teams</strong>
+              <span>Build capability that stays with your business.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              Finance team development, mentoring, competency
+              frameworks and knowledge transfer to support
+              operational continuity.
+            </p>
+            <a href="#contact" class="text-link" data-service="High-Performance Finance Teams">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+
+        <details class="service" id="service-board">
+          <summary>
+            <span class="service-number">06</span>
+            <span>
+              <strong>C-Suite &amp; Board Advisory</strong>
+              <span>An experienced perspective at the decision table.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              Independent director services, governance guidance and
+              an executive sounding board to strengthen oversight
+              and stakeholder confidence.
+            </p>
+            <a href="#contact" class="text-link" data-service="C-Suite & Board Advisory">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+      </div>
+
+      <div id="delivery-panel" class="service-grid">
+        <details class="service" id="service-finance">
+          <summary>
+            <span class="service-number">01</span>
+            <span>
+              <strong>Finance &amp; Accounting</strong>
+              <span>Reliable operations. Clear financial insight.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              Full-cycle finance and accounting, financial planning
+              and analysis, statutory reporting and compliance,
+              treasury and working-capital management.
+            </p>
+            <a href="#contact" class="text-link" data-service="Finance & Accounting">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+
+        <details class="service" id="service-hr">
+          <summary>
+            <span class="service-number">02</span>
+            <span>
+              <strong>HR &amp; Talent Operations</strong>
+              <span>People operations that scale with you.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              HR shared services, talent architecture, workforce
+              design, performance management systems and change
+              leadership and adoption.
+            </p>
+            <a href="#contact" class="text-link" data-service="HR & Talent Operations">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+
+        <details class="service" id="service-it">
+          <summary>
+            <span class="service-number">03</span>
+            <span>
+              <strong>IT Managed Services</strong>
+              <span>Secure, dependable technology operations.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              End-to-end IT operations, cloud and infrastructure
+              management, cybersecurity and compliance, and
+              24/7 service desk and support.
+            </p>
+            <a href="#contact" class="text-link" data-service="IT Managed Services">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+
+        <details class="service" id="service-digital">
+          <summary>
+            <span class="service-number">04</span>
+            <span>
+              <strong>Process &amp; Digital Transformation</strong>
+              <span>Improve the process, then automate.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              Process reengineering, Six Sigma service design,
+              RPA and workflow automation, analytics, and operating
+              model and governance redesign.
+            </p>
+            <a href="#contact" class="text-link" data-service="Process & Digital Transformation">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+
+        <details class="service" id="service-shared">
+          <summary>
+            <span class="service-number">05</span>
+            <span>
+              <strong>Shared Services Improvement</strong>
+              <span>From transaction processing to business partnering.</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-content">
+            <p>
+              Service maturity elevation through cost optimisation,
+              digital transformation, talent excellence and strategic
+              business partnering.
+            </p>
+            <a href="#contact" class="text-link" data-service="Shared Services Improvement">
+              Discuss this service ↗
+            </a>
+          </div>
+        </details>
+      </div>
+
+      <p class="section-footnote">
+        Engage one service or a broader mandate.
+        A senior partner remains accountable throughout.
+      </p>
+    </section>
+
+    <section class="approach-section" id="approach" aria-labelledby="approach-title">
+      <div class="section">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">02 / HOW WE WORK</p>
+            <h2 id="approach-title">
+              Steady it.<br>
+              Then <em>make it better.</em>
+            </h2>
+          </div>
+          <p>
+            Protect business continuity first. Build improvements
+            in phases, with clear ownership and measurable progress.
+          </p>
         </div>
 
-
-        <div class="framework-architecture">
-
-            
-
-            <!-- CONNECTING LINE -->
-
-            <div class="framework-line">
-
-                <div class="framework-progress"></div>
-
-            </div>
-
-
-            <!-- FRAMEWORK STEPS -->
-
-            <div class="framework-steps">
-
-
-                <!-- 01 -->
-
-                <div class="framework-step active">
-
-                    <div class="step-number">
-                        01
-                    </div>
-
-                    <div class="step-content">
-
-                        <span class="step-label">
-                            DISCOVER
-                        </span>
-
-                        <h3>
-                            Understand
-                        </h3>
-
-                        <p>
-                            Identify business challenges,
-                            opportunities and transformation
-                            priorities.
-                        </p>
-
-                        <div class="step-tags">
-
-                            <span>
-                                Business
-                            </span>
-
-                            <span>
-                                Data
-                            </span>
-
-                            <span>
-                                Insights
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- 02 -->
-
-                <div class="framework-step">
-
-                    <div class="step-number">
-                        02
-                    </div>
-
-                    <div class="step-content">
-
-                        <span class="step-label">
-                            DEFINE
-                        </span>
-
-                        <h3>
-                            Strategize
-                        </h3>
-
-                        <p>
-                            Build a clear transformation
-                            roadmap aligned with business
-                            objectives.
-                        </p>
-
-                        <div class="step-tags">
-
-                            <span>
-                                Strategy
-                            </span>
-
-                            <span>
-                                Roadmap
-                            </span>
-
-                            <span>
-                                AI
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- 03 -->
-
-                <div class="framework-step">
-
-                    <div class="step-number">
-                        03
-                    </div>
-
-                    <div class="step-content">
-
-                        <span class="step-label">
-                            BUILD
-                        </span>
-
-                        <h3>
-                            Engineer
-                        </h3>
-
-                        <p>
-                            Design and build intelligent
-                            technology solutions that solve
-                            real business problems.
-                        </p>
-
-                        <div class="step-tags">
-
-                            <span>
-                                Technology
-                            </span>
-
-                            <span>
-                                AI
-                            </span>
-
-                            <span>
-                                Cloud
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- 04 -->
-
-                <div class="framework-step">
-
-                    <div class="step-number">
-                        04
-                    </div>
-
-                    <div class="step-content">
-
-                        <span class="step-label">
-                            TRANSFORM
-                        </span>
-
-                        <h3>
-                            Execute
-                        </h3>
-
-                        <p>
-                            Integrate solutions into business
-                            operations and drive organizational
-                            change.
-                        </p>
-
-                        <div class="step-tags">
-
-                            <span>
-                                Automation
-                            </span>
-
-                            <span>
-                                Integration
-                            </span>
-
-                            <span>
-                                Change
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- 05 -->
-
-                <div class="framework-step">
-
-                    <div class="step-number">
-                        05
-                    </div>
-
-                    <div class="step-content">
-
-                        <span class="step-label">
-                            SCALE
-                        </span>
-
-                        <h3>
-                            Grow
-                        </h3>
-
-                        <p>
-                            Continuously optimize, measure impact
-                            and scale successful transformation
-                            initiatives.
-                        </p>
-
-                        <div class="step-tags">
-
-                            <span>
-                                Growth
-                            </span>
-
-                            <span>
-                                Intelligence
-                            </span>
-
-                            <span>
-                                Innovation
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- BOTTOM STATEMENT -->
-
-            <div class="framework-bottom">
-
-                <span></span>
-
-                <p>
-                    STRATEGY
-                    <b>×</b>
-                    TECHNOLOGY
-                    <b>×</b>
-                    AI
-                    <b>×</b>
-                    EXECUTION
-                </p>
-
-                <span></span>
-
-            </div>
-
+        <div class="journey-tabs" aria-label="Delivery stages">
+          <button type="button" id="stage-tab-1" data-panel="stage-1">
+            <small>PHASE 01</small><strong>Stabilise</strong>
+          </button>
+          <button type="button" id="stage-tab-2" data-panel="stage-2">
+            <small>PHASE 02</small><strong>Standardise</strong>
+          </button>
+          <button type="button" id="stage-tab-3" data-panel="stage-3">
+            <small>PHASE 03</small><strong>Optimise</strong>
+          </button>
+          <button type="button" id="stage-tab-4" data-panel="stage-4">
+            <small>PHASE 04</small><strong>Elevate</strong>
+          </button>
         </div>
 
+        <div class="journey-panel" id="stage-1">
+          <h3>Protect the business. Understand the baseline.</h3>
+          <p>
+            Ring-fence day-to-day operations, capture knowledge,
+            shadow key roles and baseline processes and metrics.
+          </p>
+          <p class="journey-focus">
+            Focus: operational continuity and a clear starting point.
+          </p>
+        </div>
+
+        <div class="journey-panel" id="stage-2">
+          <h3>Create consistency before accelerating.</h3>
+          <p>
+            Establish a documented playbook for each process.
+            Codify controls, service levels and handoffs, addressing
+            risks before optimisation begins.
+          </p>
+          <p class="journey-focus">
+            Focus: consistent processes, controls and ownership.
+          </p>
+        </div>
+
+        <div class="journey-panel" id="stage-3">
+          <h3>Make room for higher-value work.</h3>
+          <p>
+            Automate high-volume, rules-based work, reduce rework
+            and unit-cost inefficiencies, and redirect effort
+            towards work that requires judgement.
+          </p>
+          <p class="journey-focus">
+            Focus: better processes and capacity for business decisions.
+          </p>
+        </div>
+
+        <div class="journey-panel" id="stage-4">
+          <h3>Turn operational strength into strategic value.</h3>
+          <p>
+            Embed insight and business partnering. Establish
+            continuous improvement and support innovation
+            on a stable operating foundation.
+          </p>
+          <p class="journey-focus">
+            Focus: insight, improvement and strategic partnering.
+          </p>
+        </div>
+
+        <div class="metrics-strip">
+          <strong>Manage by metrics.</strong>
+          <span>Agreed measures</span>
+          <span>Named owners</span>
+          <span>Regular reviews</span>
+        </div>
+
+        <div class="engagement-heading">
+          <h3>A starting point that fits your business.</h3>
+          <p>
+            Discovery session <span aria-hidden="true">→</span>
+            Customised roadmap <span aria-hidden="true">→</span>
+            Phased rollout
+          </p>
+        </div>
+
+        <div class="engagement-grid">
+          <article class="engagement-card reveal">
+            <p class="eyebrow">FOR SCALING ENTERPRISES</p>
+            <h3>FCFO Retainer</h3>
+            <p>
+              Ongoing financial leadership, board-ready reporting
+              and oversight on a fractional cadence.
+            </p>
+            <a href="#contact" data-engagement="FCFO Retainer">
+              Discuss a retainer ↗
+            </a>
+          </article>
+
+          <article class="engagement-card reveal">
+            <p class="eyebrow">FOR SIGNIFICANT CHANGE</p>
+            <h3>Programme Delivery</h3>
+            <p>
+              A defined change programme with milestones,
+              governance and outcomes owned end to end.
+            </p>
+            <a href="#contact" data-engagement="Programme Delivery">
+              Discuss a programme ↗
+            </a>
+          </article>
+
+          <article class="engagement-card reveal">
+            <p class="eyebrow">FOR A FOCUSED START</p>
+            <h3>Advisory Sprint</h3>
+            <p>
+              A targeted cost and cash review, ERP readiness
+              assessment or finance function diagnostic.
+            </p>
+            <a href="#contact" data-engagement="Advisory Sprint">
+              Discuss a sprint ↗
+            </a>
+          </article>
+        </div>
+
+        <p class="approach-footnote">
+          Embedded collaboration, flexible scope and senior ownership.
+          Outcome-aligned commercial models are available.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="leadership" aria-labelledby="leadership-title">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow">03 / THE PEOPLE BEHIND THE WORK</p>
+          <h2 id="leadership-title">
+            Senior experience.<br>
+            <em>Personal commitment.</em>
+          </h2>
+        </div>
+        <p>
+          Every mandate is supported by senior finance and
+          transformation specialists with global experience.
+        </p>
+      </div>
+
+      <article class="founder-profile reveal">
+        <div>
+          <p class="eyebrow">FOUNDER &amp; MANAGING PARTNER</p>
+          <h3>Rajkumar Meenakshisundaram</h3>
+          <p class="profile-role">
+            Finance, Programme Management &amp; Transformation Leader
+          </p>
+
+          <p>
+            30+ years across consulting, Cognizant, Shell,
+            Standard Chartered, Maersk and Agility. Rajkumar helps
+            CXOs turn finance into a strategic business partner,
+            combining financial leadership with end-to-end
+            transformation delivery.
+          </p>
+
+          <details class="biography">
+            <summary>More about Rajkumar <span aria-hidden="true">+</span></summary>
+            <p>
+              His experience includes shared-services turnarounds,
+              cost optimisation, automation, organisational
+              restructuring and the DSV Panalpina–Agility integration.
+              He builds resilient teams and governance frameworks
+              supporting operational excellence and stakeholder value.
+            </p>
+          </details>
+
+          <a
+            class="text-link"
+            href="https://www.linkedin.com/in/rajkumar-meenakshisundaram"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Connect on LinkedIn ↗
+          </a>
+        </div>
+
+        <div class="credentials">
+          <p class="eyebrow">CREDENTIALS &amp; GOVERNANCE</p>
+          <dl>
+            <div>
+              <dt>FCA · ICWA</dt>
+              <dd>Chartered &amp; Cost Accounting</dd>
+            </div>
+            <div>
+              <dt>CMA &amp; CFM (US)</dt>
+              <dd>Management Accounting &amp; Financial Management</dd>
+            </div>
+            <div>
+              <dt>Six Sigma Green Belt</dt>
+              <dd>Process excellence</dd>
+            </div>
+            <div>
+              <dt>Digital Transformation</dt>
+              <dd>Indian School of Business</dd>
+            </div>
+            <div>
+              <dt>Independent Director</dt>
+              <dd>Ministry of Corporate Affairs</dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+
+      <div class="team-grid">
+        <article class="team-card reveal">
+          <div class="team-image">
+            <img
+              src="assets/srinivas.png"
+              alt="Srinivas Sharma M"
+              width="400"
+              height="440"
+              loading="lazy"
+              decoding="async"
+            >
+          </div>
+          <div class="team-copy">
+            <p class="eyebrow">23+ YEARS · ACA · SIX SIGMA</p>
+            <h3>Srinivas Sharma M</h3>
+            <p>Finance &amp; accounting operations</p>
+            <details class="biography">
+              <summary>View experience <span aria-hidden="true">+</span></summary>
+              <p>Genpact · IBM · Agility</p>
+              <p>
+                Service delivery leadership, process optimisation
+                and high-performance teams.
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article class="team-card reveal">
+          <div class="team-image">
+            <img
+              src="assets/deepa.png"
+              alt="Deepa Kumar"
+              width="400"
+              height="440"
+              loading="lazy"
+              decoding="async"
+            >
+          </div>
+          <div class="team-copy">
+            <p class="eyebrow">22+ YEARS · ACA</p>
+            <h3>Deepa Kumar</h3>
+            <p>Business finance &amp; shared services</p>
+            <details class="biography">
+              <summary>View experience <span aria-hidden="true">+</span></summary>
+              <p>Cognizant · Standard Chartered · Maersk · Accenture</p>
+              <p>
+                Metrics and scorecards, business finance partnering,
+                systems integration and shared services delivery.
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article class="team-card reveal">
+          <div class="team-image">
+            <img
+              src="assets/sinduja.jpg"
+              alt="Sinduja Kamalvishnu"
+              width="400"
+              height="440"
+              loading="lazy"
+              decoding="async"
+            >
+          </div>
+          <div class="team-copy">
+            <p class="eyebrow">22+ YEARS · ACA · LEAN SIGMA</p>
+            <h3>Sinduja Kamalvishnu</h3>
+            <p>Finance shared services &amp; process excellence</p>
+            <details class="biography">
+              <summary>View experience <span aria-hidden="true">+</span></summary>
+              <p>Trane Technologies · Philips · Cognizant · Shell</p>
+              <p>
+                Record-to-report, FP&amp;A, budgeting and analysis,
+                Lean process excellence and global teams of
+                60+ members.
+              </p>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="experience-section" id="experience" aria-labelledby="experience-title">
+      <div class="section">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">04 / EXPERIENCE IN ACTION</p>
+            <h2 id="experience-title">
+              Global perspective.<br>
+              <em>Business-level impact.</em>
+            </h2>
+          </div>
+          <p>
+            Experience across technology, energy, banking and
+            logistics, applied to the challenges in front of you.
+          </p>
+        </div>
+
+        <div class="outcomes">
+          <article class="reveal">
+            <span>01</span>
+            <h3>Transformation delivery</h3>
+            <p>
+              Turned around shared-services performance and
+              engagement scores.
+            </p>
+          </article>
+          <article class="reveal">
+            <span>02</span>
+            <h3>Cost optimisation</h3>
+            <p>
+              Delivered cost goals through reengineering and
+              continuous improvement.
+            </p>
+          </article>
+          <article class="reveal">
+            <span>03</span>
+            <h3>Talent development</h3>
+            <p>
+              Built knowledge bases and career paths across
+              global operations.
+            </p>
+          </article>
+          <article class="reveal">
+            <span>04</span>
+            <h3>Stakeholder value</h3>
+            <p>
+              Moved shared services from transactional delivery
+              to business partnering.
+            </p>
+          </article>
+        </div>
+
+        <div class="mandates reveal">
+          <p class="eyebrow">MANDATES FEATURED IN OUR JULY 2026 PROFILE</p>
+          <div>
+            <p>Data masking <small>CFO MANDATE</small></p>
+            <p>Data &amp; analytics <small>CFO MANDATE</small></p>
+            <p>Logistics SaaS <small>CFO MANDATE</small></p>
+            <p>Digital marketing <small>TRANSFORMATION</small></p>
+          </div>
+        </div>
+
+        <blockquote class="reveal">
+          <span aria-hidden="true">“</span>
+          <p>
+            The professionalism and dedication you have shown
+            helped us to finalize the integration with success.
+          </p>
+          <footer>
+            EVP Finance, DSV Panalpina
+            <small>Feedback on leadership’s integration work</small>
+          </footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="contact-copy reveal">
+        <p class="eyebrow">05 / LET’S START A CONVERSATION</p>
+        <h2 id="contact-title">
+          What’s next<br>
+          <em>for your business?</em>
+        </h2>
+        <p>
+          Tell us where you are and what needs to change.
+          We’ll discuss how Maathavam can support your next step.
+        </p>
+
+        <div class="contact-person">
+          <strong>Rajkumar M</strong>
+          <span>Founder &amp; Managing Partner</span>
+        </div>
+
+        <a class="contact-email" href="mailto:rajkumar@maathavam.com">
+          rajkumar@maathavam.com ↗
+        </a>
+        <a href="tel:+919840764537">+91 98407 64537</a>
+        <a href="tel:+919363634537">+91 93636 34537</a>
+      </div>
+
+      <form id="enquiry-form" hidden>
+        <h3>Start with a conversation.</h3>
+
+        <div class="form-row">
+          <label>
+            Your name
+            <input
+              name="name"
+              autocomplete="name"
+              maxlength="100"
+              placeholder="Full name"
+              required
+            >
+          </label>
+          <label>
+            Work email
+            <input
+              type="email"
+              name="email"
+              autocomplete="email"
+              maxlength="150"
+              placeholder="you@company.com"
+              required
+            >
+          </label>
+        </div>
+
+        <label>
+          Organisation
+          <input
+            name="organisation"
+            autocomplete="organization"
+            maxlength="150"
+            placeholder="Company name"
+          >
+        </label>
+
+        <label>
+          How can we help?
+          <select name="service" id="service-select">
+            <option value="General enquiry">Let’s explore together</option>
+            <option>CFO &amp; Business Partnering</option>
+            <option>Organisational Transformation</option>
+            <option>Programme Support</option>
+            <option>Cash Flow &amp; Cost Engineering</option>
+            <option>High-Performance Finance Teams</option>
+            <option>C-Suite &amp; Board Advisory</option>
+            <option>Finance &amp; Accounting</option>
+            <option>HR &amp; Talent Operations</option>
+            <option>IT Managed Services</option>
+            <option>Process &amp; Digital Transformation</option>
+            <option>Shared Services Improvement</option>
+          </select>
+        </label>
+
+        <label>
+          Engagement
+          <select name="engagement" id="engagement-select">
+            <option>Not sure yet</option>
+            <option>FCFO Retainer</option>
+            <option>Programme Delivery</option>
+            <option>Advisory Sprint</option>
+          </select>
+        </label>
+
+        <label>
+          A little about your priorities
+          <textarea
+            name="message"
+            rows="4"
+            maxlength="1500"
+            placeholder="What would you like to achieve?"
+            required
+          ></textarea>
+        </label>
+
+        <button type="submit" class="button button-gold">
+          Prepare email enquiry <span aria-hidden="true">↗</span>
+        </button>
+
+        <p class="form-help">
+          Opens a draft in your email app for you to review and send.
+        </p>
+        <p id="form-status" role="status" aria-live="polite"></p>
+        <button type="button" id="copy-enquiry" hidden>
+          Copy enquiry instead
+        </button>
+      </form>
+
+      <noscript>
+        <p>
+          Please use the email address or phone numbers above
+          to discuss your requirements.
+        </p>
+      </noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>MAATHAVAM <span>CONSULTING</span></strong>
+      <p>Knowledge into Excellence</p>
     </div>
-
-</section>
-
-<!-- ====================================================== -->
-<!-- SOLUTIONS SECTION STARTS HERE -->
-<!-- ====================================================== -->
-
-
-<section id="solutions"
-class="solutions">
-
-<!-- ====================================================== -->
-<!-- SOLUTIONS SECTION -->
-<!-- ====================================================== -->
-
-<div class="container">
-
-
-<div class="section-header">
-
-
-<div class="section-tag">
-
-WHAT WE DO
-
-</div>
-
-
-<h2>
-
-Intelligent Solutions For
-<br>
-
-Future-Ready Enterprises
-
-</h2>
-
-
-<p>
-
-We combine strategic consulting, artificial
-intelligence and technology expertise to help
-organizations transform ideas into measurable
-business outcomes.
-
-</p>
-
-
-</div>
-
-
-
-<!-- ====================================================== -->
-<!-- SOLUTION GRID -->
-<!-- ====================================================== -->
-
-
-<div class="solutions-grid">
-
-
-
-<!-- CARD 1 -->
-
-
-<div class="solution-card">
-
-
-<div class="solution-icon">
-
-🧠
-
-</div>
-
-
-<h3>
-
-AI Consulting
-
-</h3>
-
-
-<p>
-
-Unlock the power of Artificial Intelligence
-through intelligent automation, AI strategy,
-machine learning and enterprise AI solutions.
-
-</p>
-
-
-<ul>
-
-<li>
-
-AI Strategy & Roadmap
-
-</li>
-
-
-<li>
-
-Generative AI Solutions
-
-</li>
-
-
-<li>
-
-RAG & Knowledge Systems
-
-</li>
-
-
-<li>
-
-AI Automation
-
-</li>
-
-
-</ul>
-
-
-
-<a href="#contact"
-class="solution-link">
-
-Explore AI
-
-<span>
-
-→
-
-</span>
-
-</a>
-
-
-</div>
-
-
-
-
-
-<!-- CARD 2 -->
-
-
-<div class="solution-card">
-
-
-<div class="solution-icon">
-
-🚀
-
-</div>
-
-
-<h3>
-
-Digital Transformation
-
-</h3>
-
-
-<p>
-
-Modernize business operations by integrating
-digital platforms, cloud technologies and
-next-generation solutions.
-
-</p>
-
-
-<ul>
-
-<li>
-
-Process Optimization
-
-</li>
-
-
-<li>
-
-Digital Strategy
-
-</li>
-
-
-<li>
-
-Cloud Transformation
-
-</li>
-
-
-<li>
-
-Enterprise Modernization
-
-</li>
-
-
-</ul>
-
-
-
-<a href="#contact"
-class="solution-link">
-
-Transform Business
-
-<span>
-
-→
-
-</span>
-
-</a>
-
-
-</div>
-
-
-
-
-
-<!-- CARD 3 -->
-
-
-<div class="solution-card">
-
-
-<div class="solution-icon">
-
-⚙️
-
-</div>
-
-
-<h3>
-
-Technology Strategy
-
-</h3>
-
-
-<p>
-
-Build scalable technology foundations aligned
-with business objectives and long-term growth.
-
-</p>
-
-
-<ul>
-
-<li>
-
-Technology Roadmaps
-
-</li>
-
-
-<li>
-
-Architecture Consulting
-
-</li>
-
-
-<li>
-
-System Integration
-
-</li>
-
-
-<li>
-
-Innovation Strategy
-
-</li>
-
-
-</ul>
-
-
-
-<a href="#contact"
-class="solution-link">
-
-Build Strategy
-
-<span>
-
-→
-
-</span>
-
-</a>
-
-
-</div>
-
-
-
-
-
-<!-- CARD 4 -->
-
-
-<div class="solution-card">
-
-
-<div class="solution-icon">
-
-📈
-
-</div>
-
-
-<h3>
-
-Data & Analytics
-
-</h3>
-
-
-<p>
-
-Convert complex data into meaningful insights
-that enable faster and smarter decisions.
-
-</p>
-
-
-<ul>
-
-<li>
-
-Business Intelligence
-
-</li>
-
-
-<li>
-
-Data Strategy
-
-</li>
-
-
-<li>
-
-Predictive Analytics
-
-</li>
-
-
-<li>
-
-Decision Intelligence
-
-</li>
-
-
-</ul>
-
-
-
-<a href="#contact"
-class="solution-link">
-
-Unlock Insights
-
-<span>
-
-→
-
-</span>
-
-</a>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- ====================================================== -->
-<!-- INDUSTRIES SECTION -->
-<!-- ====================================================== -->
-
-
-<section id="industries"
-class="industries">
-
-
-<div class="container">
-
-
-<div class="section-header">
-
-
-<div class="section-tag">
-
-INDUSTRIES
-
-</div>
-
-
-<h2>
-
-Technology Solutions Designed
-For Every Industry
-
-</h2>
-
-
-<p>
-
-Every industry has unique challenges.
-Maathavam creates tailored transformation
-strategies based on business needs.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="industry-grid">
-
-
-
-<div class="industry-card">
-
-
-<div class="industry-number">
-
-01
-
-</div>
-
-
-<h3>
-
-Healthcare
-
-</h3>
-
-
-<p>
-
-AI-powered healthcare systems,
-digital patient experiences and
-intelligent operations.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="industry-card">
-
-
-<div class="industry-number">
-
-02
-
-</div>
-
-
-<h3>
-
-Finance
-
-</h3>
-
-
-<p>
-
-Data-driven financial solutions,
-automation and intelligent decision systems.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="industry-card">
-
-
-<div class="industry-number">
-
-03
-
-</div>
-
-
-<h3>
-
-Manufacturing
-
-</h3>
-
-
-<p>
-
-Smart factories, predictive analytics
-and operational optimization.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="industry-card">
-
-
-<div class="industry-number">
-
-04
-
-</div>
-
-
-<h3>
-
-Retail
-
-</h3>
-
-
-<p>
-
-Customer intelligence, personalization
-and digital commerce transformation.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="industry-card">
-
-
-<div class="industry-number">
-
-05
-
-</div>
-
-
-<h3>
-
-Education
-
-</h3>
-
-
-<p>
-
-AI-enabled learning platforms and
-next-generation education systems.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="industry-card">
-
-
-<div class="industry-number">
-
-06
-
-</div>
-
-
-<h3>
-
-Enterprises
-
-</h3>
-
-
-<p>
-
-Enterprise-wide transformation through
-strategy, technology and innovation.
-
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- ====================================================== -->
-<!-- WHY Maathavam -->
-<!-- ====================================================== -->
-
-
-<section class="why-Maathavam">
-
-
-<div class="container">
-
-
-
-<div class="why-layout">
-
-
-
-<div class="why-content">
-
-
-<div class="section-tag">
-
-WHY Maathavam
-
-</div>
-
-
-<h2>
-
-Beyond Consulting.
-<br>
-
-Building Intelligent Ecosystems.
-
-</h2>
-
-
-<p>
-
-Maathavam does not simply recommend
-technology solutions. We partner with
-organizations to understand challenges,
-design strategies and execute meaningful
-transformation.
-
-</p>
-
-
-
-<div class="why-points">
-
-
-<div class="why-point">
-
-
-<div class="point-icon">
-
-✦
-
-</div>
-
-
-<div>
-
-<h4>
-
-Strategy First
-
-</h4>
-
-
-<p>
-
-Every transformation begins with a clear
-business objective.
-
-</p>
-
-</div>
-
-
-</div>
-
-
-
-
-<div class="why-point">
-
-
-<div class="point-icon">
-
-✦
-
-</div>
-
-
-<div>
-
-<h4>
-
-AI Native Thinking
-
-</h4>
-
-
-<p>
-
-We leverage artificial intelligence as a
-business accelerator.
-
-</p>
-
-</div>
-
-
-</div>
-
-
-
-
-<div class="why-point">
-
-
-<div class="point-icon">
-
-✦
-
-</div>
-
-
-<div>
-
-<h4>
-
-Execution Excellence
-
-</h4>
-
-
-<p>
-
-Turning concepts into scalable real-world
-solutions.
-
-</p>
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="why-visual">
-
-
-<div class="ecosystem">
-
-
-<div class="eco-center">
-
-AI
-
-</div>
-
-
-<div class="eco-node eco1">
-
-Strategy
-
-</div>
-
-
-<div class="eco-node eco2">
-
-Technology
-
-</div>
-
-
-<div class="eco-node eco3">
-
-Data
-
-</div>
-
-
-<div class="eco-node eco4">
-
-Innovation
-
-</div>
-
-
-<div class="eco-line"></div>
-
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- ====================================================== -->
-<!-- LEADERSHIP SECTION STARTS HERE -->
-<!-- ====================================================== -->
-
-
-<section id="leadership"
-class="leadership">
-
-<!-- ====================================================== -->
-<!-- LEADERSHIP SECTION -->
-<!-- ====================================================== -->
-
-<div class="container">
-
-
-<div class="section-header">
-
-
-<div class="section-tag">
-
-LEADERSHIP
-
-</div>
-
-
-<h2>
-
-Vision Driven.
-<br>
-
-Technology Enabled.
-
-</h2>
-
-
-<p>
-
-Behind every transformation is a vision.
-Maathavam combines strategic thinking with
-technology expertise to help organizations
-navigate the future.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="leadership-wrapper">
-
-
-
-<!-- PROFILE CARD -->
-
-
-<div class="leader-card">
-
-
-<div class="leader-image">
-
-
-<div class="leader-placeholder">
-
-M
-
-</div>
-
-
-</div>
-
-
-
-<div class="leader-info">
-
-
-<h3>
-
-Rajkumar Meenakshisundaram
-
-</h3>
-
-
-<span>
-
-Founder & Strategic Advisor
-
-</span>
-
-
-<p>
-
-Driving business transformation through
-strategy, innovation and technology-led
-solutions.
-
-</p>
-
-
-
-<div class="leader-social">
-
-
-<a href="#">
-
-LinkedIn
-
-</a>
-
-
-<a href="#">
-
-Contact
-
-</a>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- LEADERSHIP MESSAGE -->
-
-
-<div class="leader-message">
-
-
-<div class="quote-mark">
-
-"
-
-</div>
-
-
-<h3>
-
-Technology alone does not transform
-businesses.
-
-<br>
-
-The right vision,
-strategy and execution do.
-
-</h3>
-
-
-<p>
-
-Maathavam believes that organizations should
-not chase technology trends blindly. Instead,
-technology should become a strategic advantage
-that creates sustainable growth.
-
-</p>
-
-
-
-<div class="leadership-values">
-
-
-<div>
-
-
-<strong>
-
-01
-
-</strong>
-
-
-<span>
-
-Strategic Vision
-
-</span>
-
-
-</div>
-
-
-
-<div>
-
-
-<strong>
-
-02
-
-</strong>
-
-
-<span>
-
-Innovation Mindset
-
-</span>
-
-
-</div>
-
-
-
-<div>
-
-
-<strong>
-
-03
-
-</strong>
-
-
-<span>
-
-Business Impact
-
-</span>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- ====================================================== -->
-<!-- INSIGHTS SECTION -->
-<!-- ====================================================== -->
-
-
-<section id="insights"
-class="insights">
-
-
-<div class="container">
-
-
-<div class="section-header">
-
-
-<div class="section-tag">
-
-INSIGHTS
-
-</div>
-
-
-<h2>
-
-Ideas That Shape The Future
-
-</h2>
-
-
-<p>
-
-Exploring artificial intelligence, business
-strategy and emerging technologies shaping
-tomorrow's organizations.
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="insights-grid">
-
-
-
-<!-- INSIGHT 1 -->
-
-
-<article class="insight-card">
-
-
-<div class="insight-image">
-
-
-<div class="insight-category">
-
-AI
-
-</div>
-
-
-</div>
-
-
-
-<div class="insight-content">
-
-
-<h3>
-
-The Future Of Generative AI In Business
-
-</h3>
-
-
-<p>
-
-How organizations can leverage AI beyond
-experimentation and create real business value.
-
-</p>
-
-
-
-<a href="#">
-
-Read Article →
-
-</a>
-
-
-</div>
-
-
-</article>
-
-
-
-
-
-<!-- INSIGHT 2 -->
-
-
-<article class="insight-card">
-
-
-<div class="insight-image">
-
-
-<div class="insight-category">
-
-DIGITAL
-
-</div>
-
-
-</div>
-
-
-
-<div class="insight-content">
-
-
-<h3>
-
-Building Future Ready Enterprises
-
-</h3>
-
-
-<p>
-
-Why digital transformation requires more than
-technology adoption.
-
-</p>
-
-
-
-<a href="#">
-
-Read Article →
-
-</a>
-
-
-</div>
-
-
-</article>
-
-
-
-
-
-<!-- INSIGHT 3 -->
-
-
-<article class="insight-card">
-
-
-<div class="insight-image">
-
-
-<div class="insight-category">
-
-STRATEGY
-
-</div>
-
-
-</div>
-
-
-
-<div class="insight-content">
-
-
-<h3>
-
-From Data To Intelligent Decisions
-
-</h3>
-
-
-<p>
-
-Turning enterprise data into actionable
-business intelligence.
-
-</p>
-
-
-
-<a href="#">
-
-Read Article →
-
-</a>
-
-
-</div>
-
-
-</article>
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- ====================================================== -->
-<!-- IMPACT SECTION -->
-<!-- ====================================================== -->
-
-
-<section class="impact">
-
-
-<div class="container">
-
-
-
-<div class="impact-box">
-
-
-<div class="impact-header">
-
-
-<h2>
-
-Creating Measurable Business Impact
-
-</h2>
-
-
-<p>
-
-Our approach focuses on outcomes, not just
-implementations.
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="impact-grid">
-
-
-
-<div class="impact-item">
-
-
-<h3>
-
-AI
-
-</h3>
-
-
-<p>
-
-Driven Innovation
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="impact-item">
-
-
-<h3>
-
-∞
-
-</h3>
-
-
-<p>
-
-Continuous Transformation
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="impact-item">
-
-
-<h3>
-
-360°
-
-</h3>
-
-
-<p>
-
-Business Perspective
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="impact-item">
-
-
-<h3>
-
-100%
-
-</h3>
-
-
-<p>
-
-Strategic Alignment
-
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- ====================================================== -->
-<!-- FINAL CTA STARTS HERE -->
-<!-- ====================================================== -->
-
-
-<section id="contact"
-class="contact">
-<!-- ====================================================== -->
-<!-- CONTACT SECTION -->
-<!-- ====================================================== -->
-
-
-<div class="container">
-
-
-<div class="contact-wrapper">
-
-
-
-<div class="contact-content">
-
-
-<div class="section-tag">
-
-START YOUR JOURNEY
-
-</div>
-
-
-<h2>
-
-Ready To Build The Future?
-
-</h2>
-
-
-<p>
-
-Whether you are exploring AI adoption,
-digital transformation or technology strategy,
-Maathavam helps you turn possibilities into
-business outcomes.
-
-</p>
-
-
-
-<div class="contact-highlights">
-
-
-<div class="contact-point">
-
-
-<span>
-
-✦
-
-</span>
-
-
-<p>
-
-Strategic Consultation
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="contact-point">
-
-
-<span>
-
-✦
-
-</span>
-
-
-<p>
-
-AI Transformation Roadmap
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="contact-point">
-
-
-<span>
-
-✦
-
-</span>
-
-
-<p>
-
-Technology Advisory
-
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<!-- CONTACT FORM -->
-
-
-<div class="contact-card">
-
-
-<form>
-
-
-<div class="input-group">
-
-
-<label>
-
-Name
-
-</label>
-
-
-<input 
-type="text"
-placeholder="Your Name">
-
-
-</div>
-
-
-
-
-<div class="input-group">
-
-
-<label>
-
-Email
-
-</label>
-
-
-<input 
-type="email"
-placeholder="Your Email">
-
-
-</div>
-
-
-
-
-<div class="input-group">
-
-
-<label>
-
-Organization
-
-</label>
-
-
-<input 
-type="text"
-placeholder="Company Name">
-
-
-</div>
-
-
-
-
-<div class="input-group">
-
-
-<label>
-
-Message
-
-</label>
-
-
-<textarea 
-rows="5"
-placeholder="Tell us about your transformation goals"></textarea>
-
-
-</div>
-
-
-
-
-<button 
-type="submit"
-class="btn btn-primary">
-
-
-Start Conversation
-
-
-</button>
-
-
-</form>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- ====================================================== -->
-<!-- FOOTER -->
-<!-- ====================================================== -->
-
-
-<footer>
-
-
-<div class="container">
-
-
-<div class="footer-grid">
-
-
-
-<!-- BRAND -->
-
-
-<div class="footer-brand">
-
-
-<h2>
-
-Maathavam
-
-</h2>
-
-
-<p>
-
-Transformational Business Partnering
-through Strategy, Leadership and Insights
-</p>
-
-
-</div>
-
-
-
-
-
-<!-- LINKS -->
-
-
-<div class="footer-links">
-
-
-<h4>
-
-Explore
-
-</h4>
-
-
-<a href="#home">
-
-Home
-
-</a>
-
-
-<a href="#solutions">
-
-Solutions
-
-</a>
-
-
-<a href="#industries">
-
-Industries
-
-</a>
-
-
-<a href="#insights">
-
-Insights
-
-</a>
-
-
-</div>
-
-
-
-
-
-<div class="footer-links">
-
-
-<h4>
-
-Services
-
-</h4>
-
-
-<a href="#">
-
-AI Consulting
-
-</a>
-
-
-<a href="#">
-
-Digital Transformation
-
-</a>
-
-
-<a href="#">
-
-Technology Strategy
-
-</a>
-
-
-<a href="#">
-
-Data & Analytics
-
-</a>
-
-
-</div>
-
-
-
-
-
-<div class="footer-links">
-
-
-<h4>
-
-Connect
-
-</h4>
-
-
-<a href="#">
-
-LinkedIn
-
-</a>
-
-
-<a href="#">
-
-Email
-</a>
-<a href="#">
-Contact
-</a>
-</div>
-</div>
-<div class="footer-bottom">
-<p>
-© 2026 Maathavam. All Rights Reserved.
-</p>
-<p>
-Strategy • Technology • Artificial Intelligence
-</p>
-</div>
-
-</div>
-
-</footer>
+    <p>
+      Maathavam Consulting Private Limited<br>
+      © 2026. All rights reserved.
+    </p>
+    <div class="footer-actions">
+      <button type="button" id="motion-toggle" hidden>
+        Pause animations
+      </button>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
 </body>
-
 </html>
