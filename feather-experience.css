@@ -1,0 +1,356 @@
+/* =========================================
+   LARGE BACKGROUND FEATHER
+   ========================================= */
+
+body {
+  isolation: isolate;
+}
+
+/* Replace the earlier dot-and-line traveller. */
+.scroll-traveller {
+  display: none !important;
+}
+
+.floating-feather {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+
+  width: clamp(230px, 34vw, 510px);
+  aspect-ratio: 240 / 320;
+
+  pointer-events: none;
+  visibility: hidden;
+  opacity: .4;
+
+  transform-origin: center;
+  contain: layout style;
+
+  /* Transform and opacity are updated by JavaScript. */
+}
+
+.floating-feather.is-positioned {
+  visibility: visible;
+}
+
+.floating-feather svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/*
+ * Give the feather a visible background layer.
+ * Page content stays in front; text itself is not transparent.
+ */
+body {
+  background: #fffdf7;
+}
+
+.hero {
+  isolation: auto;
+  background:
+    linear-gradient(
+      110deg,
+      rgba(7, 27, 52, .98) 0%,
+      rgba(16, 54, 87, .88) 48%,
+      rgba(18, 71, 81, .55) 100%
+    );
+}
+
+/* Feather sits behind these translucent section surfaces. */
+.approach-section {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(12, 36, 67, .92),
+      rgba(18, 62, 90, .86)
+    );
+}
+
+.experience-section {
+  background: rgba(240, 244, 243, .86);
+}
+
+#services,
+#services.section-in-view,
+#leadership,
+#leadership.section-in-view,
+#contact,
+#contact.section-in-view {
+  background-color: rgba(255, 253, 247, .82);
+}
+
+/* Hero space previously occupied by the founder */
+.feather-stage {
+  position: relative;
+  min-height: 490px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  animation: none !important;
+}
+
+/* Remove the old portrait-frame decoration. */
+.feather-stage::before {
+  display: none !important;
+}
+
+.feather-stage-caption {
+  padding-bottom: 20px;
+  color: #e9d397;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+/* Founder portrait now belongs with the leadership content. */
+.founder-profile {
+  grid-template-columns: 250px minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+
+.founder-photo {
+  overflow: hidden;
+  border-radius: 6px;
+  background: #e7e8e1;
+  border: 1px solid #d6c598;
+}
+
+.founder-photo img {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.founder-profile .credentials {
+  grid-column: 1 / -1;
+  border-left: 0;
+  border-top: 1px solid #d3d9cf;
+  padding: 25px 0 0;
+}
+
+.founder-profile .credentials dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 30px;
+}
+
+/* =========================================
+   3D CARD SHELLS
+   ========================================= */
+
+/*
+ * Transform an outer shell so the earlier cinematic
+ * animations can continue operating on the card itself.
+ */
+.depth-shell {
+  min-width: 0;
+  align-self: start;
+  perspective: 1000px;
+}
+
+.depth-plane {
+  position: relative;
+  transform-style: preserve-3d;
+  transform:
+    rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
+
+  transition: transform 180ms ease-out;
+}
+
+.depth-plane > .team-card,
+.depth-plane > .engagement-card {
+  position: relative;
+  overflow: hidden;
+
+  /* Disable the earlier pointer tilt and hover enlargement. */
+  rotate: none !important;
+  scale: 1 !important;
+}
+
+.depth-shell .team-card:hover,
+.depth-shell .engagement-card:hover {
+  scale: 1 !important;
+}
+
+/* Replaces the old JS-driven card spotlight. */
+.depth-plane::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: 7px;
+
+  background: radial-gradient(
+    circle at var(--light-x, 50%) var(--light-y, 50%),
+    rgba(255, 226, 153, .19),
+    transparent 65%
+  );
+
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.depth-shell.is-hovered .depth-plane::after {
+  opacity: 1;
+}
+
+.depth-shell.is-hovered .team-card,
+.depth-shell.is-hovered .engagement-card {
+  border-color: #d6b363;
+  box-shadow: 0 22px 45px rgba(8, 31, 48, .18);
+}
+
+@media (max-width: 760px) {
+  .feather-stage {
+    min-height: 285px;
+  }
+
+  .floating-feather {
+    width: 240px;
+  }
+
+  .founder-profile {
+    grid-template-columns: 1fr;
+  }
+
+  .founder-photo {
+    width: min(100%, 300px);
+    margin: 0 auto;
+  }
+
+  .founder-photo img {
+    height: 340px;
+  }
+
+  .founder-profile .credentials dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+html[data-motion="off"] .depth-plane {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .depth-plane {
+    transform: none !important;
+  }
+}
+
+/* =========================================
+   POP-UP HOVER FOR CARDS
+   ========================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+  /*
+   * The outer shell lifts.
+   * The inner plane keeps its existing 3D tilt.
+   */
+  .depth-shell {
+    position: relative;
+    transform-origin: center;
+    transition:
+      translate 380ms cubic-bezier(.16, 1, .3, 1),
+      scale 380ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  html:not([data-motion="off"]) .depth-shell:hover {
+    translate: 0 -12px;
+    scale: 1.035;
+    z-index: 6;
+  }
+
+  .depth-shell:hover .team-card,
+  .depth-shell:hover .engagement-card {
+    border-color: #dfb75b;
+    box-shadow:
+      0 25px 45px rgba(10, 30, 48, .2),
+      0 8px 16px rgba(10, 30, 48, .1);
+  }
+
+  /*
+   * Additional cards.
+   * Skip cards currently playing their entrance animation.
+   */
+  .service,
+  .number-item,
+  .outcomes article,
+  .founder-profile,
+  .mandates {
+    position: relative;
+    transform-origin: center;
+    transition:
+      translate 350ms cubic-bezier(.16, 1, .3, 1),
+      scale 350ms cubic-bezier(.16, 1, .3, 1),
+      box-shadow 350ms ease,
+      border-color 250ms ease;
+  }
+
+  html:not([data-motion="off"])
+  :is(
+    .service,
+    .number-item,
+    .outcomes article,
+    .founder-profile,
+    .mandates
+  ):not(.cinema-running):hover {
+    /* Override earlier cinematic movement resets. */
+    translate: 0 -7px !important;
+    scale: 1.015 !important;
+    z-index: 5;
+
+    box-shadow:
+      0 18px 35px rgba(10, 30, 48, .13),
+      0 0 0 1px rgba(212, 170, 75, .3);
+  }
+
+  /* Keep large reading surfaces more restrained. */
+  html:not([data-motion="off"])
+  :is(.founder-profile, .mandates):not(.cinema-running):hover {
+    translate: 0 -5px !important;
+    scale: 1.008 !important;
+  }
+
+  /* The open service stays visually connected to its content. */
+  .service[open]:hover {
+    box-shadow:
+      inset 3px 0 #d4aa4b,
+      0 18px 35px rgba(10, 30, 48, .12);
+  }
+
+  /* Portrait zoom reinforces the card's lift. */
+  .depth-shell:hover .team-image img {
+    transform: scale(1.075);
+  }
+}
+
+/* Disable added movement when paused. */
+html[data-motion="off"] .depth-shell {
+  translate: none !important;
+  scale: 1 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html .depth-shell:hover,
+  html :is(
+    .service,
+    .number-item,
+    .outcomes article,
+    .founder-profile,
+    .mandates
+  ):not(.cinema-running):hover {
+    translate: none !important;
+    scale: 1 !important;
+    transition: none !important;
+  }
+}
