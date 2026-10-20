@@ -265,58 +265,84 @@
 
   engagementSelect.addEventListener("change", markEngagement);
 
-  /* Enquiry draft.
-     This deliberately does not claim to send an email. */
+  /* Send enquiries through EmailJS. */
   const form = document.querySelector("#enquiry-form");
   const status = document.querySelector("#form-status");
   const copyButton = document.querySelector("#copy-enquiry");
+  const submitButton = form.querySelector("[type='submit']");
   let enquiry = "";
 
   function composeEnquiry() {
     const values = new FormData(form);
     const read = key => String(values.get(key) || "").trim();
+    const templateParams = {
+      name: read("name"),
+      email: read("email"),
+      organisation: read("organisation") || "Not specified",
+      service: read("service"),
+      engagement: read("engagement"),
+      message: read("message")
+    };
 
     return {
-      subject: `Maathavam enquiry: ${read("service")}`,
+      templateParams,
       body:
-        `Hello Rajkumar,\n\n${read("message")}\n\n` +
-        `Name: ${read("name")}\n` +
-        `Email: ${read("email")}\n` +
-        `Organisation: ${read("organisation") || "Not specified"}\n` +
-        `Service: ${read("service")}\n` +
-        `Engagement: ${read("engagement")}\n\n` +
-        `Regards,\n${read("name")}`
+        `Hello Rajkumar,\n\n${templateParams.message}\n\n` +
+        `Name: ${templateParams.name}\n` +
+        `Email: ${templateParams.email}\n` +
+        `Organisation: ${templateParams.organisation}\n` +
+        `Service: ${templateParams.service}\n` +
+        `Engagement: ${templateParams.engagement}\n\n` +
+        `Regards,\n${templateParams.name}`
     };
   }
 
-  form.addEventListener("submit", event => {
+  form.addEventListener("submit", async event => {
     event.preventDefault();
 
-    if (!form.reportValidity()) return;
+    if (!form.reportValidity() || submitButton.disabled) return;
 
     const draft = composeEnquiry();
     enquiry = draft.body;
-    copyButton.hidden = false;
+    copyButton.hidden = true;
+    submitButton.disabled = true;
+    form.setAttribute("aria-busy", "true");
+    status.textContent = "Sending your enquiry…";
 
-    const mailto =
-      "mailto:rajkumar@maathavam.com" +
-      `?subject=${encodeURIComponent(draft.subject)}` +
-      `&body=${encodeURIComponent(draft.body)}`;
+    try {
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: "service_ac12z3a",
+          template_id: "template_3g6ukut",
+          user_id: "K2fROoG8wMGcMG1OV",
+          template_params: draft.templateParams
+        })
+      });
 
-    if (mailto.length > 1900) {
+      if (!response.ok) {
+        const responseText = await response.text();
+        throw new Error(
+          `EmailJS returned HTTP ${response.status}: ` +
+          (responseText || response.statusText)
+        );
+      }
+
       status.textContent =
-        "Your enquiry is ready. It is too long for a reliable " +
-        "email-app link. Copy it below and send it to " +
-        "rajkumar@maathavam.com.";
-      return;
+        "Thank you. Your enquiry has been sent. We’ll be in touch soon.";
+    } catch (error) {
+      console.error("Unable to send the enquiry through EmailJS.", error);
+      copyButton.hidden = false;
+      const details = error instanceof Error ? error.message : String(error);
+      status.textContent =
+        "We couldn’t send your enquiry just now. Please try again, copy it " +
+        "below, or email rajkumar@maathavam.com directly. Details: " +
+        details.slice(0, 240);
+    } finally {
+      submitButton.disabled = false;
+      form.removeAttribute("aria-busy");
     }
-
-    status.textContent =
-      "Your draft is ready. Review and send it in your email app. " +
-      "If no app opens, copy the enquiry below and email " +
-      "rajkumar@maathavam.com.";
-
-    window.location.href = mailto;
   });
 
   copyButton.addEventListener("click", async () => {
@@ -339,5 +365,3 @@
 
   form.hidden = false;
 })();
-
-

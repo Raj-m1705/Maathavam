@@ -13,7 +13,7 @@ Delete these obsolete animation files from your repo:
 The supplied `index.html` already references ONLY:
 - `style.css`: responsive layout and component appearance
 - `motion.css`: feather, opening and hover appearance
-- `script.js`: tabs, single-open services, navigation, enquiry draft
+- `script.js`: tabs, single-open services, navigation, EmailJS enquiry sending
 - `motion.js`: one coordinated opening/scroll/hover controller
 
 Do not append the previous chat patches to these replacement files.
@@ -43,7 +43,8 @@ Use a static site preset with this folder as the publish directory. No build com
 - Stable hover lift and pointer tilt on cards; mobile gets lighter effects.
 - Slower entrances trigger at approximately 77% of viewport height.
 - Progress line, Back to top and motion preference control.
-- Enquiry form opens an email draft; it does not submit to a backend.
+- Enquiry form sends directly through EmailJS using the configured Zoho mail service.
+- EmailJS public keys are intended for browser use. Restrict allowed origins in EmailJS to the production site and any local test origin.
 
 ## Fixes
 
