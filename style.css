@@ -690,7 +690,6 @@ summary::-webkit-details-marker { display: none; }
 
 .founder-profile h3 {
   font: 35px/1.2 Georgia, serif;
-  overflow-wrap: anywhere;
 }
 
 .founder-profile p { font-size: 15px; }
@@ -1049,7 +1048,7 @@ form .button { width: 100%; }
   .engagement-grid { grid-template-columns: 1fr; }
 
   .founder-profile { grid-template-columns: 1fr; padding: 25px; gap: 30px; }
-  .founder-profile h3 { font-size: 31px; }
+  .founder-profile h3 { font-size: clamp(20px, 6vw, 31px); }
   .credentials { padding: 25px 0 0; border-left: 0; border-top: 1px solid #d3d9cf; }
   .team-grid { grid-template-columns: 1fr; }
   .team-card { display: grid; grid-template-columns: 110px 1fr; align-items: start; }
@@ -1093,4 +1092,3 @@ html[data-motion="off"] *::after {
     transition: none !important;
   }
 }
-
