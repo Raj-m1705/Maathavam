@@ -42,7 +42,7 @@ Use a static site preset with this folder as the publish directory. No build com
 - Accessible service and delivery tabs with arrow-key navigation.
 - Stable hover lift and pointer tilt on cards; mobile gets lighter effects.
 - Slower entrances trigger at approximately 77% of viewport height.
-- Progress line, Back to top and motion preference control.
+- Progress line, Back to top and operating-system reduced-motion support.
 - Enquiry form sends directly through EmailJS using the configured Zoho mail service.
 - EmailJS public keys are intended for browser use. Restrict allowed origins in EmailJS to the production site and any local test origin.
 

@@ -6,49 +6,14 @@
 
   /* Motion preference */
   const motionQuery = matchMedia("(prefers-reduced-motion: reduce)");
-  const motionToggle = document.querySelector("#motion-toggle");
-
-  let storedMotion = null;
-
-  try {
-    storedMotion = localStorage.getItem("maathavam-motion");
-  } catch {
-    // The site still works if browser storage is unavailable.
-  }
-
-  let motionEnabled =
-    !motionQuery.matches && storedMotion !== "off";
+  let motionEnabled = !motionQuery.matches;
 
   function updateMotion() {
     root.dataset.motion = motionEnabled ? "on" : "off";
-    motionToggle.textContent = motionEnabled
-      ? "Pause animations"
-      : "Enable animations";
-    motionToggle.setAttribute("aria-pressed", String(!motionEnabled));
   }
 
-  motionToggle.hidden = false;
-
-  motionToggle.addEventListener("click", () => {
-    motionEnabled = !motionEnabled && !motionQuery.matches;
-    updateMotion();
-
-    try {
-      localStorage.setItem(
-        "maathavam-motion",
-        motionEnabled ? "on" : "off"
-      );
-    } catch {
-      // Preference applies for this visit even without storage.
-    }
-
-    if (motionQuery.matches) {
-      motionToggle.textContent = "Reduced motion enabled on your device";
-    }
-  });
-
   motionQuery.addEventListener("change", event => {
-    if (event.matches) motionEnabled = false;
+    motionEnabled = !event.matches;
     updateMotion();
   });
 
@@ -329,8 +294,10 @@
         );
       }
 
-      status.textContent =
-        "Thank you. Your enquiry has been sent. We’ll be in touch soon.";
+      status.textContent = "Your enquiry has been sent successfully.";
+      window.alert(
+        "Your enquiry has been sent successfully. Thank you — we’ll be in touch soon."
+      );
     } catch (error) {
       console.error("Unable to send the enquiry through EmailJS.", error);
       copyButton.hidden = false;

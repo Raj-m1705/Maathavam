@@ -15,8 +15,7 @@
   function top(){document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,0); document.documentElement.style.removeProperty('scroll-behavior');}
   if(location.hash) history.replaceState(history.state,'',location.pathname+location.search);
   top(); addEventListener('pageshow',top,{once:true});
-  var paused=false;try{paused=localStorage.getItem('maathavam-motion')==='off';}catch(e){}
-  if(!paused&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
     document.documentElement.classList.add('opening-running');
     window.introDeadline=setTimeout(function(){document.documentElement.classList.remove('opening-running');document.dispatchEvent(new Event('introfinished'));},3800);
   }

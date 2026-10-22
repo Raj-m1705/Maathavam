@@ -909,15 +909,6 @@ form .button { width: 100%; }
 
 .footer-actions { display: flex; align-items: center; gap: 20px; font-size: 12px; }
 
-#motion-toggle {
-  padding: 9px 14px;
-  border: 1px solid #ffffff45;
-  border-radius: 20px;
-  color: #eedaaa;
-  background: transparent;
-  font-size: 12px;
-}
-
 .reveal.is-visible {  }
 
 @keyframes arrive {
